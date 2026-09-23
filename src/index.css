@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+/* ─── Design System — Bua University ───────────────────────── */
+@theme inline {
+  /* Brand */
+  --color-brand-navy:       #1a2d50;
+  --color-brand-blue:       #3b6fd4;
+  --color-brand-blue-light: #5a8be8;
+
+  /* Backgrounds */
+  --color-background:       #080d18;
+  --color-surface:          #0f1624;
+  --color-surface-alt:      #0b1020;
+
+  /* Text */
+  --color-foreground:       #e4eaf4;
+  --color-foreground-sub:   #8fa3be;
+  --color-foreground-muted: #4d6280;
+
+  /* Semantic */
+  --color-success:          #10b981;
+  --color-warning:          #f59e0b;
+  --color-danger:           #ef4444;
+  --color-info:             #38bdf8;
+
+  /* Borders */
+  --color-border:           #1c2a42;
+
+  /* Tailwind compat aliases */
+  --color-card:             #0f1624;
+  --color-card-foreground:  #e4eaf4;
+  --color-primary:          #3b6fd4;
+  --color-primary-foreground: #ffffff;
+  --color-secondary:        #1a2540;
+  --color-secondary-foreground: #8fa3be;
+  --color-muted:            #1c2a42;
+  --color-muted-foreground: #4d6280;
+  --color-accent:           #5a8be8;
+  --color-accent-foreground: #ffffff;
+  --color-ring:             #3b6fd4;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; margin: 0; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+body {
+  background-color: #080d18;
+  color: #e4eaf4;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── Readability boost: enforce minimum legible sizes ─────────────────── */
+/* Tiny Tailwind arbitrary sizes (8-10px) are unreadable on projector/demo.
+   Force them up without touching every component. */
+[class*="text-[7px]"] { font-size: 11px !important; line-height: 1.5 !important; }
+[class*="text-[8px]"] { font-size: 12px !important; line-height: 1.5 !important; }
+[class*="text-[9px]"] { font-size: 12.5px !important; line-height: 1.5 !important; }
+[class*="text-[10px]"] { font-size: 13px !important; line-height: 1.55 !important; }
+[class*="text-[11px]"] { font-size: 13.5px !important; line-height: 1.55 !important; }
+.text-xs { font-size: 14px !important; line-height: 1.55 !important; }
+.text-sm { font-size: 15.5px !important; }
+
+.ds-label { font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+.ds-body  { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.65; }
+.ds-caption { font-family: 'Inter', sans-serif; font-size: 13px; }
+
+/* Keep the app's full-height screens clear of iOS notches / home indicators
+   without altering their intended layout proportions. */
+.h-screen {
+  height: 100dvh !important;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+.mono { font-family: 'DM Mono', monospace; }
+
+/* ─── Typography scale ───────────────────────────────────────────────────── */
+.ds-h1 { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.ds-h2 { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+.ds-h3 { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.005em; }
+.ds-h4 { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; }
+.ds-label { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; }
+.ds-body  { font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; }
+.ds-caption { font-family: 'Inter', sans-serif; font-size: 11px; }
+
+/* ─── Scrollbars ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1c2a42; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3b6fd4; }
+
+/* ─── Timetable grid ─────────────────────────────────────────────────────── */
+.session-card {
+  transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+  cursor: grab;
+}
+.session-card:hover {
+  transform: translateY(-1px);
+  z-index: 20;
+}
+.session-card:active { cursor: grabbing; }
+.session-card.dragging {
+  opacity: 0.35;
+  transform: scale(0.98);
+}
+.drop-cell {
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+.drop-cell.drag-over {
+  background: rgba(59, 111, 212, 0.10) !important;
+  box-shadow: inset 0 0 0 2px #3b6fd4;
+}
+
+/* ─── Conflict pulse ─────────────────────────────────────────────────────── */
+@keyframes conflict-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(239,68,68,0); }
+}
+.conflict-pulse { animation: conflict-pulse 2.2s ease-in-out infinite; }
+
+@keyframes ping-once {
+  0%   { transform: scale(1);    opacity: 1;   }
+  100% { transform: scale(2.2);  opacity: 0;   }
+}
+.ping-once { animation: ping-once 0.7s ease-out forwards; }
+
+/* ─── Fade-slide mount ───────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+.fade-up { animation: fade-up 0.25s ease-out both; }
+
+/* ─── Print ──────────────────────────────────────────────────────────────── */
+@media print {
+  header, aside, nav, .no-print { display: none !important; }
+  body { background: white; color: black; }
+}
